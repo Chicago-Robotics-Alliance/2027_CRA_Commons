@@ -17,17 +17,18 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.commands.DriveCommands;
+import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.drive.DriveBase;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.ModuleIO;
-import frc.robot.subsystems.drive.rev.GyroIONavXSpark;
-import frc.robot.subsystems.drive.rev.ModuleIOSpark;
+import frc.robot.subsystems.drive.ctre.GyroIOPigeon2Phoenix;
+import frc.robot.subsystems.drive.ctre.ModuleIOTalonFX;
+import frc.robot.subsystems.drive.ctre.PhoenixDrive;
 import frc.robot.subsystems.drive.rev.ModuleIOSparkSim;
 import frc.robot.subsystems.drive.rev.SparkDrive;
 import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.vision.VisionConstants;
 import frc.robot.subsystems.vision.VisionIO;
-import frc.robot.subsystems.vision.VisionIOLimelight;
 import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
@@ -54,17 +55,13 @@ public class RobotContainer {
       case REAL:
         // Real robot, instantiate hardware IO implementations
         drive =
-            new SparkDrive(
-                new GyroIONavXSpark(),
-                new ModuleIOSpark(0),
-                new ModuleIOSpark(1),
-                new ModuleIOSpark(2),
-                new ModuleIOSpark(3));
-        vision =
-            new Vision(
-                drive::addVisionMeasurement,
-                new VisionIOLimelight(VisionConstants.leftCameraName, drive::getRotation),
-                new VisionIOLimelight(VisionConstants.rightCameraName, drive::getRotation));
+            new PhoenixDrive(
+                new GyroIOPigeon2Phoenix(),
+                new ModuleIOTalonFX(TunerConstants.FrontLeft),
+                new ModuleIOTalonFX(TunerConstants.FrontRight),
+                new ModuleIOTalonFX(TunerConstants.BackLeft),
+                new ModuleIOTalonFX(TunerConstants.BackRight));
+        vision = new Vision(drive::addVisionMeasurement, new VisionIO() {});
         break;
 
       case SIM:

@@ -1,6 +1,6 @@
 package frc.robot.subsystems.drive.rev;
 
-import static frc.robot.subsystems.drive.rev.DriveConstants.*;
+import static frc.robot.subsystems.drive.rev.MAXDriveConstants.*;
 
 import com.pathplanner.lib.config.RobotConfig;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -8,6 +8,7 @@ import frc.robot.subsystems.drive.DriveBase;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.ModuleIO;
 
+/** A drivetrain using REV/Spark controllers. */
 public class SparkDrive extends DriveBase {
 
   public SparkDrive(

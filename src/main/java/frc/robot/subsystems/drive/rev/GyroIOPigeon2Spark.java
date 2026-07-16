@@ -7,7 +7,7 @@
 
 package frc.robot.subsystems.drive.rev;
 
-import static frc.robot.subsystems.drive.rev.DriveConstants.*;
+import static frc.robot.subsystems.drive.rev.MAXDriveConstants.*;
 
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusCode;
@@ -22,7 +22,7 @@ import frc.robot.subsystems.drive.DriveBase;
 import frc.robot.subsystems.drive.GyroIO;
 import java.util.Queue;
 
-/** IO implementation for Pigeon 2 using Spark odometry threads. */
+/** IO implementation for Pigeon 2 with Spark Drivetrain. */
 public class GyroIOPigeon2Spark implements GyroIO {
   private final Pigeon2 pigeon = new Pigeon2(pigeonCanId);
   private final StatusSignal<Angle> yaw = pigeon.getYaw();

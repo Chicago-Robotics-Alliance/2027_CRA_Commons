@@ -14,7 +14,11 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.util.Units;
 
-public class DriveConstants {
+/**
+ * Constants for the REV/Spark drivetrain. Only bother modifying if you are using REV rather than
+ * Phoenix.
+ */
+public class MAXDriveConstants {
   public static final double maxSpeedMetersPerSec =
       5.74; // TODO: Determine actual max speed of the robot and update this value.
   public static final double trackWidth = Units.inchesToMeters(23.5);

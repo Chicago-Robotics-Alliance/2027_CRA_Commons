@@ -77,6 +77,12 @@ public class MotorIOSpark extends MotorIO {
     }
   }
 
+  /**
+   * Updates one Inputs from readings of a Spark motor controller.
+   *
+   * @param inputs Inputs to update from reading.
+   * @param spark Motor to read from.
+   */
   protected void updateMotorInputs(MotorIOInputs inputs, SparkBase spark) {
     sparkStickyFault = false;
     ifOk(

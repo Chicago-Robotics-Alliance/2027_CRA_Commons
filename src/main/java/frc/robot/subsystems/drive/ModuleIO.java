@@ -10,6 +10,7 @@ package frc.robot.subsystems.drive;
 import edu.wpi.first.math.geometry.Rotation2d;
 import org.littletonrobotics.junction.AutoLog;
 
+/** IO interface for a swerve module with drive and turn motors. */
 public interface ModuleIO {
   @AutoLog
   public static class ModuleIOInputs {

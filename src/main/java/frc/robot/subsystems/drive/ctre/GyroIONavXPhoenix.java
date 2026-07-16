@@ -15,7 +15,7 @@ import frc.robot.subsystems.drive.DriveBase;
 import frc.robot.subsystems.drive.GyroIO;
 import java.util.Queue;
 
-/** IO implementation for NavX. */
+/** IO implementation for NavX using Phoenix. */
 public class GyroIONavXPhoenix implements GyroIO {
   private final AHRS navX = new AHRS(NavXComType.kMXP_SPI, (byte) DriveBase.ODOMETRY_FREQUENCY);
   private final Queue<Double> yawPositionQueue;

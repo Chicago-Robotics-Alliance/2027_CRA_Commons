@@ -10,6 +10,7 @@ package frc.robot.subsystems.drive;
 import edu.wpi.first.math.geometry.Rotation2d;
 import org.littletonrobotics.junction.AutoLog;
 
+/** Interface for IMUs that provide rotational position and velocity data. */
 public interface GyroIO {
   @AutoLog
   public static class GyroIOInputs {

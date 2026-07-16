@@ -169,8 +169,8 @@ public class ServoMotorSubsystem<IO extends MotorIO> extends MotorSubsystem<IO> 
   }
 
   /**
-   * Creates a Command that goes to a setpoint and then waits until the mechanism is the setpoint's
-   * position.
+   * Creates a Command that sets the mechanism to a setpoint and then waits until the mechanism is
+   * the setpoint's position.
    *
    * @param mechanismPosition Position to evaluate proximity to.
    * @return A new Command to apply setpoint and wait.

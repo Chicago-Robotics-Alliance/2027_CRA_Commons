@@ -42,8 +42,7 @@ import org.littletonrobotics.junction.Logger;
 /**
  * Vendor agnostic swerve drive base. Handles odometry, pose estimation, PathPlanner integration,
  * and module coordination. Vendor specific concerns (starting the correct odometry sampling thread,
- * and sourcing PathPlanner's RobotConfig / drivetrain constants) are left to subclasses since those
- * are the only points where Spark and Phoenix based drivetrains genuinely diverge.
+ * and sourcing PathPlanner's RobotConfig / drivetrain constants) are left to subclasses.
  */
 public abstract class DriveBase extends SubsystemBase {
   public static final double ODOMETRY_FREQUENCY = 100.0; // Hz

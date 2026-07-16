@@ -7,7 +7,7 @@
 
 package frc.robot.subsystems.drive.rev;
 
-import static frc.robot.subsystems.drive.rev.DriveConstants.*;
+import static frc.robot.subsystems.drive.rev.MAXDriveConstants.*;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;

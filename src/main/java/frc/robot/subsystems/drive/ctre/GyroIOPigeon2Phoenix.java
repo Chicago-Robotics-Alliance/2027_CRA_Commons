@@ -21,7 +21,7 @@ import frc.robot.subsystems.drive.DriveBase;
 import frc.robot.subsystems.drive.GyroIO;
 import java.util.Queue;
 
-/** IO implementation for Pigeon 2 using the Phoenix Tuner architecture. */
+/** IO implementation for Pigeon 2 using Phoenix. */
 public class GyroIOPigeon2Phoenix implements GyroIO {
   private final Pigeon2 pigeon =
       new Pigeon2(TunerConstants.DrivetrainConstants.Pigeon2Id, TunerConstants.kCANBus);

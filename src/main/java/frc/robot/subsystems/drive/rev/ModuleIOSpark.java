@@ -8,7 +8,7 @@
 package frc.robot.subsystems.drive.rev;
 
 import static frc.lib.util.SparkUtil.*;
-import static frc.robot.subsystems.drive.rev.DriveConstants.*;
+import static frc.robot.subsystems.drive.rev.MAXDriveConstants.*;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.PersistMode;

@@ -11,6 +11,7 @@ import frc.robot.subsystems.drive.DriveBase;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.ModuleIO;
 
+/** A drivetrain using CTRE/Phoenix controllers. */
 public class PhoenixDrive extends DriveBase {
   // PathPlanner config constants; ROBOT_MASS_KG / ROBOT_MOI / WHEEL_COF aren't in
   // TunerConstants and must be supplied here since Tuner X doesn't generate them.
