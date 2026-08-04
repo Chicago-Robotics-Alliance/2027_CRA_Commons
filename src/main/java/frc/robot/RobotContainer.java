@@ -26,6 +26,7 @@ import frc.robot.subsystems.drive.ctre.ModuleIOTalonFX;
 import frc.robot.subsystems.drive.ctre.PhoenixDrive;
 import frc.robot.subsystems.drive.rev.ModuleIOSparkSim;
 import frc.robot.subsystems.drive.rev.SparkDrive;
+import frc.robot.subsystems.superstructure.Superstructure;
 import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.vision.VisionConstants;
 import frc.robot.subsystems.vision.VisionIO;
@@ -139,6 +140,9 @@ public class RobotContainer {
 
     // Switch to X pattern while X button is pressed
     controller.x().whileTrue(Commands.run(drive::stopWithX, drive));
+
+    // Shoot close shot while right trigger is held, idle when released
+    controller.rightTrigger().whileTrue(Superstructure.mInstance.closeShot()).onFalse(Superstructure.mInstance.idle());
 
     // Reset gyro to 0° when A button is pressed
     controller
