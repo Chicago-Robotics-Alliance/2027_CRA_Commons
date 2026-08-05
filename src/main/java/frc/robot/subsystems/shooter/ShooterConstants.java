@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems.shooter;
 
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 
@@ -25,6 +26,12 @@ public class ShooterConstants {
     public static final AngularVelocity kMediumShotRPM = Units.RPM.of(4000);
     public static final AngularVelocity kFarShotRPM = Units.RPM.of(5000);
 
+    // PID constants (example)
+    public static final double kP = 0.1;
+    public static final double kI = 0.0;
+    public static final double kD = 0.01;
+    public static final double kS = 0.2; // Static feedforward
+    public static final double kV = 0.5; // Velocity feedforward
 
     public static final AngularVelocity kEpsilonThreshold = Units.RPM.of(10); // 10 RPM acceptable error
 
@@ -34,6 +41,13 @@ public class ShooterConstants {
         config.inverted(false);
         config.smartCurrentLimit(40);
         config.idleMode(IdleMode.kCoast);
+
+        // Configure PID and feedforward for slot 2 (velocity control)
+        config.closedLoop.feedForward.kS(kS, ClosedLoopSlot.kSlot2);
+        config.closedLoop.feedForward.kV(kV, ClosedLoopSlot.kSlot2);
+        config.closedLoop.p(kP, ClosedLoopSlot.kSlot2);
+        config.closedLoop.i(kI, ClosedLoopSlot.kSlot2);
+        config.closedLoop.d(kD, ClosedLoopSlot.kSlot2);
 
         return config;
     }
