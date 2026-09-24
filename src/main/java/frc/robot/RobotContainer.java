@@ -142,7 +142,10 @@ public class RobotContainer {
     controller.x().whileTrue(Commands.run(drive::stopWithX, drive));
 
     // Shoot close shot while right trigger is held, idle when released
-    controller.rightTrigger().whileTrue(Superstructure.mInstance.closeShot()).onFalse(Superstructure.mInstance.idle());
+    controller
+        .rightTrigger()
+        .whileTrue(Superstructure.mInstance.closeShot())
+        .onFalse(Superstructure.mInstance.idle());
 
     // Reset gyro to 0° when A button is pressed
     controller
