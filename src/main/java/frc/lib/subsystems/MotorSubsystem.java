@@ -13,46 +13,52 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.io.MotorIO;
 import frc.lib.io.MotorIO.Setpoint;
 import java.util.function.Supplier;
+import org.littletonrobotics.junction.Logger;
 
 /** Base subsystem for any subsystem that uses motors. */
 public class MotorSubsystem<IO extends MotorIO> extends SubsystemBase {
   protected final IO io;
   protected final String name;
+  protected final double gearRatio;
 
   /**
    * Creates a MotorSubsystem with a MotorIO and name for telemetry.
    *
    * @param io MotorIO for the subsystem.
+   * @param gearRatio Gear ratio for the subsystem.
    * @param name Name for telemetry.
    */
-  public MotorSubsystem(IO io, String name) {
+  public MotorSubsystem(IO io, String name, double gearRatio) {
     super(name);
     this.io = io;
     this.name = name;
+    this.gearRatio = gearRatio;
   }
 
   @Override
   public void periodic() {
     io.updateInputs();
     io.processLogging(name);
+    Logger.recordOutput(name + "/Setpoint/Mode", io.getSetpoint().mode.toString());
+    Logger.recordOutput(name + "/Setpoint/Value", io.getSetpoint().baseUnits);
   }
 
   /**
    * Gets the last read position of the subsystem's main motor.
    *
-   * @return Position of the subsystem.
+   * @return Position of the subsystem, in mechanism units (i.e. accounting for gear ratio).
    */
   public Angle getPosition() {
-    return io.getPosition();
+    return io.getPosition().div(gearRatio);
   }
 
   /**
    * Gets the last read velocity of the subsystem's main motor.
    *
-   * @return Velocity of the subsystem.
+   * @return Velocity of the subsystem, in mechanism units (i.e. accounting for gear ratio).
    */
   public AngularVelocity getVelocity() {
-    return io.getVelocity();
+    return io.getVelocity().div(gearRatio);
   }
 
   /**

@@ -19,17 +19,20 @@ public class FlywheelMotorSubsystem<IO extends MotorIO> extends MotorSubsystem<I
    *
    * @param io MotorIO for the subsystem.
    * @param name Name for telemetry.
+   * @param gearRatio Gear ratio for the subsystem.
    * @param epsilonThreshold Acceptable error range for velocity.
    */
-  public FlywheelMotorSubsystem(IO io, String name, AngularVelocity epsilonThreshold) {
-    super(io, name);
+  public FlywheelMotorSubsystem(
+      IO io, String name, double gearRatio, AngularVelocity epsilonThreshold) {
+    super(io, name, gearRatio);
     this.epsilonThreshold = epsilonThreshold;
   }
 
   /**
    * Gets whether or not the subsystem is within an acceptable threshold of a provided velocity.
    *
-   * @param velocity Velocity to check proximity to.
+   * @param velocity Velocity to check proximity to, in mechanism units (i.e. accounting for gear
+   *     ratio).
    * @return Whether the subsystem is acceptably near the given velocity.
    */
   public boolean nearVelocity(AngularVelocity velocity) {
@@ -43,10 +46,11 @@ public class FlywheelMotorSubsystem<IO extends MotorIO> extends MotorSubsystem<I
    * Gets whether or not the subsystem is within an acceptable threshold of it's velocity setpoint.
    *
    * @return Whether the subsystem is acceptably near it's setpoint's velocity. Returns false if not
-   *     in velcity coontrol mode.
+   *     in velocity control mode.
    */
   public boolean spunUp() {
-    return nearVelocity(BaseUnits.AngleUnit.per(BaseUnits.TimeUnit).of(io.getSetpoint().baseUnits))
+    return nearVelocity(
+            BaseUnits.AngleUnit.per(BaseUnits.TimeUnit).of(io.getSetpoint().baseUnits / gearRatio))
         && io.getSetpoint().mode.isVelocityControl();
   }
 }
