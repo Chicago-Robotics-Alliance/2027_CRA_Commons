@@ -12,25 +12,27 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.io.MotorIO;
 import frc.lib.io.MotorIO.Setpoint;
+import frc.lib.io.MotorIONone;
+import frc.robot.Constants;
 import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 /** Base subsystem for any subsystem that uses motors. */
-public class MotorSubsystem<IO extends MotorIO> extends SubsystemBase {
-  protected final IO io;
+public class MotorSubsystem extends SubsystemBase {
+  protected final MotorIO io;
   protected final String name;
   protected final double gearRatio;
 
   /**
    * Creates a MotorSubsystem with a MotorIO and name for telemetry.
    *
-   * @param io MotorIO for the subsystem.
+   * @param ioSupplier MotorIO supplier for the subsystem, discarded if in replay.
    * @param gearRatio Gear ratio for the subsystem.
    * @param name Name for telemetry.
    */
-  public MotorSubsystem(IO io, String name, double gearRatio) {
+  public MotorSubsystem(Supplier<MotorIO> ioSupplier, String name, double gearRatio) {
     super(name);
-    this.io = io;
+    this.io = Constants.isReplay ? new MotorIONone() : ioSupplier.get();
     this.name = name;
     this.gearRatio = gearRatio;
   }

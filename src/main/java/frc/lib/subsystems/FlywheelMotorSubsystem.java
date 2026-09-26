@@ -8,23 +8,27 @@ import edu.wpi.first.units.BaseUnits;
 import edu.wpi.first.units.measure.AngularVelocity;
 import frc.lib.io.MotorIO;
 import frc.lib.util.Util;
+import java.util.function.Supplier;
 
 /** Base subsystem for any subsystem that uses motors and requires precise velocity control. */
-public class FlywheelMotorSubsystem<IO extends MotorIO> extends MotorSubsystem<IO> {
+public class FlywheelMotorSubsystem extends MotorSubsystem {
   protected final AngularVelocity epsilonThreshold;
 
   /**
    * Creates a FlywheelMotorSubsystem with a MotorIO, name for telemetry, and threshold for
    * differences in measurement.
    *
-   * @param io MotorIO for the subsystem.
+   * @param ioSupplier MotorIO supplier for the subsystem, discarded if in replay.
    * @param name Name for telemetry.
    * @param gearRatio Gear ratio for the subsystem.
    * @param epsilonThreshold Acceptable error range for velocity.
    */
   public FlywheelMotorSubsystem(
-      IO io, String name, double gearRatio, AngularVelocity epsilonThreshold) {
-    super(io, name, gearRatio);
+      Supplier<MotorIO> ioSupplier,
+      String name,
+      double gearRatio,
+      AngularVelocity epsilonThreshold) {
+    super(ioSupplier, name, gearRatio);
     this.epsilonThreshold = epsilonThreshold;
   }
 

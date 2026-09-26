@@ -17,9 +17,10 @@ import frc.lib.io.MotorIO;
 import frc.lib.io.MotorIO.Setpoint;
 import frc.lib.util.DelayedBoolean;
 import frc.lib.util.Util;
+import java.util.function.Supplier;
 
 /** Base subsystem for any subsystem that uses motors and requires precise position control. */
-public class ServoMotorSubsystem<IO extends MotorIO> extends MotorSubsystem<IO> {
+public class ServoMotorSubsystem extends MotorSubsystem {
   protected final Angle epsilonThreshold;
 
   // Homing-specific variables
@@ -33,13 +34,14 @@ public class ServoMotorSubsystem<IO extends MotorIO> extends MotorSubsystem<IO> 
    * Creates a *non-homing* ServoMotorSubsystem with a MotorIO, name for telemetry, and threshold
    * for differences in measurement.
    *
-   * @param io MotorIO for the subsystem.
+   * @param ioSupplier MotorIO supplier for the subsystem, discarded if in replay.
    * @param name Name for telemetry.
    * @param gearRatio Gear ratio for the subsystem.
    * @param epsilonThreshold Acceptable error range for position.
    */
-  public ServoMotorSubsystem(IO io, String name, double gearRatio, Angle epsilonThreshold) {
-    super(io, name, gearRatio);
+  public ServoMotorSubsystem(
+      Supplier<MotorIO> ioSupplier, String name, double gearRatio, Angle epsilonThreshold) {
+    super(ioSupplier, name, gearRatio);
     this.isHomingSubsystem = false;
     this.epsilonThreshold = epsilonThreshold;
   }
@@ -48,15 +50,19 @@ public class ServoMotorSubsystem<IO extends MotorIO> extends MotorSubsystem<IO> 
    * Creates a *homing* ServoMotorSubsystem with a MotorIO, name for telemetry, and threshold for
    * differences in measurement.
    *
-   * @param io MotorIO for the subsystem.
+   * @param ioSupplier MotorIO supplier for the subsystem, discarded if in replay.
    * @param name Name for telemetry.
    * @param gearRatio Gear ratio for the subsystem.
    * @param epsilonThreshold Acceptable error range for position.
    * @param config Homing configuration.
    */
   public ServoMotorSubsystem(
-      IO io, String name, double gearRatio, Angle epsilonThreshold, ServoHomingConfig config) {
-    this(io, name, gearRatio, epsilonThreshold);
+      Supplier<MotorIO> ioSupplier,
+      String name,
+      double gearRatio,
+      Angle epsilonThreshold,
+      ServoHomingConfig config) {
+    this(ioSupplier, name, gearRatio, epsilonThreshold);
     this.isHomingSubsystem = true;
     homingConfig = config;
     mHomingDelay =
